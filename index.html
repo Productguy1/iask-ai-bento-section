@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iAsk AI - Bento Box Prototype</title>
+  <title>iAsk AI - Academic, Accurate and Authoritative</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -11,97 +11,607 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+  <!-- ===== HEADER / NAV ===== -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="#" class="logo-link">
+          <div class="logo">
+            <img src="assets/iask-logo.svg" alt="" class="logo-icon">
+          </div>
+          <div class="student-badge">
+            <img src="assets/mortarboard-small.svg" alt="" class="badge-icon">
+            <span class="badge-label">STUDENT</span>
+          </div>
+        </a>
+        <nav class="main-nav">
+          <a href="https://iask.ai/pricing" class="nav-link">iAsk Pro</a>
+          <button type="button" class="nav-link" data-set-mode="guide_me">Learn With AI</button>
+          <a href="https://iask.ai/video" class="nav-link">AI Video Tutor</a>
+          <div class="nav-dropdown">
+            <button type="button" class="nav-link nav-dropdown-trigger" aria-expanded="false" aria-controls="tools-menu">
+              <span>Tools</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M6 8.5L9.29289 11.7929C9.62623 12.1262 9.79289 12.2929 10 12.2929C10.2071 12.2929 10.3738 12.1262 10.7071 11.7929L14 8.5" stroke="#596173" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="tools-menu" id="tools-menu" hidden>
+              <li><a href="#" class="tools-menu-item"><img src="assets/tools/chrome-extension.svg" alt="" class="tools-menu-icon">iAsk Chrome extension</a></li>
+              <li><a href="#" class="tools-menu-item"><img src="assets/tools/ai-summarizer.svg" alt="" class="tools-menu-icon">AI summarizer</a></li>
+              <li><a href="#" class="tools-menu-item"><img src="assets/tools/ai-assistance.svg" alt="" class="tools-menu-icon">AI assistance</a></li>
+              <li><a href="#" class="tools-menu-item"><img src="assets/tools/companion-ai.svg" alt="" class="tools-menu-icon">Companion AI</a></li>
+              <li><a href="#" class="tools-menu-item"><img src="assets/tools/analyze-documents.svg" alt="" class="tools-menu-icon">Analyze documents</a></li>
+              <li><a href="#" class="tools-menu-item"><img src="assets/tools/ai-writer.svg" alt="" class="tools-menu-icon">AI writer</a></li>
+              <li><a href="#" class="tools-menu-item"><img src="assets/tools/seo-content.svg" alt="" class="tools-menu-icon">SEO content</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="header-right">
+        <a href="https://iask.ai/users/log_in" class="btn-login">Log in</a>
+        <a href="https://iask.ai/users/log_in" class="btn-signup">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero">
+    <div class="hero-container">
+      <!-- Promo banner -->
+      <div class="promo-banner">
+        <a class="promo-alert" href="https://www.linkedin.com/posts/iask-ai_iask-just-surpassed-750-million-searches-activity-7470512022779121664-62zx" target="_blank" rel="noopener noreferrer">
+          <span class="promo-new">New</span>
+          <span class="promo-message">
+            <span>We hit 750 million searches</span>
+            <span class="visually-hidden">(opens in a new tab)</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M15.418 10H4.16797M10.8346 15C10.8346 15 15.8346 11.3176 15.8346 10C15.8346 8.68233 10.8346 5 10.8346 5" stroke="#182230" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      <!-- Title -->
+      <div class="hero-title-block">
+        <h1 class="hero-title">
+          Academic, <span class="gradient-text">accurate</span> and authoritative.
+        </h1>
+        <p class="hero-subtitle">The AI search engine built for students and researchers</p>
+      </div>
+
+      <!-- Search Box -->
+      <form class="search-box" role="search" action="https://iask.ai/q" method="get">
+        <div class="search-input-area">
+          <label for="search-query" class="visually-hidden">Ask a question</label>
+          <input type="text" id="search-query" name="q" class="search-input" placeholder="How does photosynthesis work?" autocomplete="off" enterkeyhint="search" required>
+          <ul class="search-attachments" aria-label="Attached files" hidden></ul>
+        </div>
+        <div class="search-toolbar">
+          <div class="toolbar-left">
+            <input type="file" id="search-files" class="visually-hidden" multiple tabindex="-1">
+            <button type="button" class="toolbar-btn toolbar-add" aria-label="Attach files" aria-controls="search-files">
+              <img src="assets/add-icon.svg" alt="">
+            </button>
+
+            <div class="dropdown">
+              <input type="hidden" name="mode" value="academic">
+              <button type="button" class="toolbar-selector dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="mode-menu">
+                <img src="assets/mortarboard.svg" alt="" class="selector-icon">
+                <span class="visually-hidden">Search mode: </span>
+                <span class="selector-label">Student</span>
+                <svg class="selector-chevron" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M6 8.5L9.29289 11.7929C9.62623 12.1262 9.79289 12.2929 10 12.2929C10.2071 12.2929 10.3738 12.1262 10.7071 11.7929L14 8.5" stroke="#596173" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <ul class="dropdown-menu" id="mode-menu" role="listbox" aria-label="Search mode" hidden>
+                <li class="dropdown-option" role="option" tabindex="-1" data-value="pro" aria-selected="false">
+                  <img src="assets/modes/pro-search.svg" alt="" class="option-icon">Pro search
+                </li>
+                <li class="dropdown-option" role="option" tabindex="-1" data-value="academic" aria-selected="true">
+                  <img src="assets/modes/student.svg" alt="" class="option-icon">Student
+                </li>
+                <li class="dropdown-option" role="option" tabindex="-1" data-value="guide_me" aria-selected="false">
+                  <img src="assets/modes/guide-me.svg" alt="" class="option-icon">Guide me
+                </li>
+                <li class="dropdown-option" role="option" tabindex="-1" data-value="question" aria-selected="false">
+                  <img src="assets/modes/question.svg" alt="" class="option-icon">Question
+                </li>
+                <li class="dropdown-option" role="option" tabindex="-1" data-value="thinking" aria-selected="false">
+                  <img src="assets/modes/deep-thinking.svg" alt="" class="option-icon">Deep thinking
+                </li>
+                <li class="dropdown-option" role="option" tabindex="-1" data-value="forums" aria-selected="false">
+                  <img src="assets/modes/online-discussions.svg" alt="" class="option-icon">Online discussions
+                </li>
+                <li class="dropdown-option" role="option" tabindex="-1" data-value="wiki" aria-selected="false">
+                  <img src="assets/modes/wiki-search.svg" alt="" class="option-icon option-icon-small">Wiki search
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="toolbar-right">
+            <div class="dropdown">
+              <input type="hidden" name="options[detail_level]" value="concise">
+              <button type="button" class="toolbar-selector dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="detail-menu">
+                <span class="visually-hidden">Answer length: </span>
+                <span class="selector-label">Concise</span>
+                <svg class="selector-chevron" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M6 8.5L9.29289 11.7929C9.62623 12.1262 9.79289 12.2929 10 12.2929C10.2071 12.2929 10.3738 12.1262 10.7071 11.7929L14 8.5" stroke="#596173" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-compact" id="detail-menu" role="listbox" aria-label="Answer length" hidden>
+                <li class="dropdown-option" role="option" tabindex="-1" data-value="concise" aria-selected="true">Concise</li>
+                <li class="dropdown-option" role="option" tabindex="-1" data-value="detailed" aria-selected="false">Average</li>
+                <li class="dropdown-option" role="option" tabindex="-1" data-value="comprehensive" aria-selected="false">Detailed</li>
+              </ul>
+            </div>
+
+            <button type="button" class="toolbar-btn toolbar-mic" aria-label="Voice input" aria-pressed="false">
+              <img src="assets/mic-icon.svg" alt="">
+            </button>
+            <button type="submit" class="btn-ask-ai">Ask AI</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Wave decoration -->
+      <div class="hero-wave">
+        <img src="assets/wave-vectors.svg" alt="" class="wave-svg">
+      </div>
+    </div>
+
+    <!-- Trust bar -->
+    <div class="trust-bar">
+      <p class="trust-text">Trusted by students and researchers from top schools</p>
+      <div class="trust-marquee">
+        <div class="trust-track">
+          <div class="trust-logos">
+            <img src="assets/mit-logo.svg" alt="MIT" class="trust-logo trust-logo-mit">
+            <img src="assets/chicago-logo.svg" alt="University of Chicago" class="trust-logo trust-logo-chicago">
+            <img src="assets/uc-berkeley-logo.svg" alt="UC Berkeley" class="trust-logo trust-logo-berkeley">
+            <img src="assets/harvard-logo.svg" alt="Harvard University" class="trust-logo trust-logo-harvard">
+            <img src="assets/stanford-logo.svg" alt="Stanford" class="trust-logo trust-logo-stanford">
+            <img src="assets/waterloo-logo.png" alt="University of Waterloo" class="trust-logo trust-logo-waterloo">
+          </div>
+          <!-- Identical copies so the scroll loops seamlessly -->
+          <div class="trust-logos" aria-hidden="true">
+            <img src="assets/mit-logo.svg" alt="" class="trust-logo trust-logo-mit">
+            <img src="assets/chicago-logo.svg" alt="" class="trust-logo trust-logo-chicago">
+            <img src="assets/uc-berkeley-logo.svg" alt="" class="trust-logo trust-logo-berkeley">
+            <img src="assets/harvard-logo.svg" alt="" class="trust-logo trust-logo-harvard">
+            <img src="assets/stanford-logo.svg" alt="" class="trust-logo trust-logo-stanford">
+            <img src="assets/waterloo-logo.png" alt="" class="trust-logo trust-logo-waterloo">
+          </div>
+          <div class="trust-logos" aria-hidden="true">
+            <img src="assets/mit-logo.svg" alt="" class="trust-logo trust-logo-mit">
+            <img src="assets/chicago-logo.svg" alt="" class="trust-logo trust-logo-chicago">
+            <img src="assets/uc-berkeley-logo.svg" alt="" class="trust-logo trust-logo-berkeley">
+            <img src="assets/harvard-logo.svg" alt="" class="trust-logo trust-logo-harvard">
+            <img src="assets/stanford-logo.svg" alt="" class="trust-logo trust-logo-stanford">
+            <img src="assets/waterloo-logo.png" alt="" class="trust-logo trust-logo-waterloo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHAT IS IASK SECTION ===== -->
   <section class="what-is-iask">
     <div class="container">
       <div class="text-header">
-        <h2 class="section-title">What is iAsk?</h2>
+        <h2 class="section-title">What is iAsk AI?</h2>
         <p class="section-subtitle">iAsk AI is an advanced free AI search engine that enables users to ask AI questions and receive instant, accurate and factual answers without ever storing their data.</p>
       </div>
 
       <div class="bento-container">
         <!-- Row 1: 3 equal cards -->
         <div class="bento-row bento-row-3">
-          <!-- Card 1: Ask a question -->
-          <div class="bento-card">
-            <div class="card-arrow">
+          <a class="bento-card" href="https://iask.ai/" target="_blank" rel="noopener">
+            <div class="card-arrow" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M13.8323 6.1698L5.87733 14.1248M14.1269 12.9463C14.1269 12.9463 15.0586 6.80686 14.1269 5.87519C13.1952 4.94346 7.05584 5.87519 7.05584 5.87519" stroke="#141D29" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <div class="card-graphic graphic-question">
-            </div>
+            <div class="card-graphic graphic-question"></div>
             <div class="card-text">
-              <h3 class="card-title">Ask a question</h3>
+              <h3 class="card-title">Ask a question<span class="visually-hidden"> (opens in a new tab)</span></h3>
               <p class="card-desc">Our free Ask AI answer engine enables users to ask questions in a natural language and receive detailed, accurate responses.</p>
             </div>
-          </div>
+          </a>
 
-          <!-- Card 2: Make a summary -->
-          <div class="bento-card">
-            <div class="card-arrow">
+          <a class="bento-card" href="https://iask.ai/summarizer" target="_blank" rel="noopener">
+            <div class="card-arrow" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M13.8323 6.1698L5.87733 14.1248M14.1269 12.9463C14.1269 12.9463 15.0586 6.80686 14.1269 5.87519C13.1952 4.94346 7.05584 5.87519 7.05584 5.87519" stroke="#141D29" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <div class="card-graphic graphic-summary">
-            </div>
+            <div class="card-graphic graphic-summary"></div>
             <div class="card-text">
-              <h3 class="card-title">Make a summary</h3>
+              <h3 class="card-title">Make a summary<span class="visually-hidden"> (opens in a new tab)</span></h3>
               <p class="card-desc">Turn lengthy URL or files into easy-to-read concise bullet points, making information extraction quick and efficient.</p>
             </div>
-          </div>
+          </a>
 
-          <!-- Card 3: Analyze docs -->
-          <div class="bento-card">
-            <div class="card-arrow">
+          <a class="bento-card" href="https://iask.ai/docs" target="_blank" rel="noopener">
+            <div class="card-arrow" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M13.8323 6.1698L5.87733 14.1248M14.1269 12.9463C14.1269 12.9463 15.0586 6.80686 14.1269 5.87519C13.1952 4.94346 7.05584 5.87519 7.05584 5.87519" stroke="#141D29" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <div class="card-graphic graphic-analyze">
-            </div>
+            <div class="card-graphic graphic-analyze"></div>
             <div class="card-text">
-              <h3 class="card-title">Analyze docs</h3>
+              <h3 class="card-title">Analyze docs<span class="visually-hidden"> (opens in a new tab)</span></h3>
               <p class="card-desc">Upload PDFs, research papers, or articles and ask questions about the content. Get clear summaries and explanations in seconds.</p>
             </div>
-          </div>
+          </a>
         </div>
 
         <!-- Row 2: 2 wider cards -->
         <div class="bento-row bento-row-2">
-          <!-- Card 4: Create stunning images -->
-          <div class="bento-card bento-card-wide">
-            <div class="card-arrow">
+          <a class="bento-card bento-card-wide" href="https://iask.ai/?mode=guide_me" target="_blank" rel="noopener">
+            <div class="card-arrow" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M13.8323 6.1698L5.87733 14.1248M14.1269 12.9463C14.1269 12.9463 15.0586 6.80686 14.1269 5.87519C13.1952 4.94346 7.05584 5.87519 7.05584 5.87519" stroke="#141D29" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <div class="card-graphic graphic-images">
-            </div>
+            <div class="card-graphic graphic-images"></div>
             <div class="card-text">
-              <h3 class="card-title">Create stunning images</h3>
+              <h3 class="card-title">Create stunning images<span class="visually-hidden"> (opens in a new tab)</span></h3>
               <p class="card-desc">Describe your needs in simple language, and marvel as it transforms your ideas into stunning images.</p>
             </div>
-          </div>
+          </a>
 
-          <!-- Card 5: Check your grammar -->
-          <div class="bento-card bento-card-wide">
-            <div class="card-arrow">
+          <a class="bento-card bento-card-wide" href="https://flawlessly.ai/" target="_blank" rel="noopener">
+            <div class="card-arrow" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M13.8323 6.1698L5.87733 14.1248M14.1269 12.9463C14.1269 12.9463 15.0586 6.80686 14.1269 5.87519C13.1952 4.94346 7.05584 5.87519 7.05584 5.87519" stroke="#141D29" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <div class="card-graphic graphic-grammar">
-            </div>
+            <div class="card-graphic graphic-grammar"></div>
             <div class="card-text">
-              <h3 class="card-title">Check your grammar</h3>
+              <h3 class="card-title">Check your grammar<span class="visually-hidden"> (opens in a new tab)</span></h3>
               <p class="card-desc">iAsk can help to fix your grammar with just one click, ensuring polished written content effortlessly.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AI LEARNING ENGINE SECTION ===== -->
+  <section class="learning-engine">
+    <div class="engine-container">
+      <div class="engine-content">
+        <div class="engine-header">
+          <h2 class="engine-title">The <span class="gradient-text engine-gradient">AI learning</span> engine<br> trusted by students</h2>
+          <p class="engine-subtitle">Millions of students worldwide use iAsk AI to research, learn, and explore new topics with answers backed by verifiable sources.</p>
+        </div>
+
+        <div class="engine-features">
+          <span class="engine-indicator" aria-hidden="true"></span>
+          <ul class="engine-tablist" role="tablist" aria-label="iAsk AI features" aria-orientation="vertical">
+            <li role="presentation">
+              <button type="button" class="engine-feature" role="tab" id="engine-tab-tutor" aria-controls="engine-panel-tutor" aria-selected="true">
+                <span class="engine-feature-title">Learn with your own AI tutor</span>
+                <span class="engine-feature-desc">Experience real-time AI video tutoring with personalized explanations that adapt to your pace, learning style, and questions.</span>
+              </button>
+            </li>
+            <li role="presentation">
+              <button type="button" class="engine-feature" role="tab" id="engine-tab-citations" data-autoplay-delay="10000" aria-controls="engine-panel-citations" aria-selected="false" tabindex="-1">
+                <span class="engine-feature-title">Citations you can actually check</span>
+                <span class="engine-feature-desc">Every answer links back to traceable sources, the way a professor would expect a citation to work, instead of confidently-stated guesses.</span>
+              </button>
+            </li>
+            <li role="presentation">
+              <button type="button" class="engine-feature" role="tab" id="engine-tab-validated" data-autoplay-delay="10000" aria-controls="engine-panel-validated" aria-selected="false" tabindex="-1">
+                <span class="engine-feature-title">Validated by the people who use it most</span>
+                <span class="engine-feature-desc">Refined through feedback from 3M+ students and researchers, not just internal QA.</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tutor-visual">
+        <img src="assets/tutor/glow%20gradient.svg" alt="" class="tutor-glow">
+        <div class="tutor-frame">
+          <div class="tutor-screen">
+            <div class="engine-panel is-active" id="engine-panel-tutor" role="tabpanel" aria-labelledby="engine-tab-tutor">
+            <span class="tutor-main tutor-tinted">
+              <img src="assets/tutor/smiling-man.webp" alt="An iAsk AI video tutor explaining a topic on a video call with a student">
+            </span>
+            <span class="tutor-thumbnail tutor-tinted">
+              <span class="tutor-thumbnail-clip">
+                <img src="assets/tutor/smiling-lady.webp" alt="A student learning with iask AI tutor">
+              </span>
+            </span>
+
+            <div class="tutor-badge">
+              <img src="assets/tutor/logo%20with%20drop%20shadow.svg" alt="" class="tutor-badge-icon">
+              <span>iAsk AI Video tutor</span>
+              <span class="tutor-voice" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+            </div>
+
+            <div class="tutor-controls" aria-hidden="true">
+              <span class="tutor-control"><img src="assets/tutor/mic.svg" alt="" class="tutor-icon tutor-icon-mic"></span>
+              <span class="tutor-control"><img src="assets/tutor/camcorder_off.svg" alt="" class="tutor-icon tutor-icon-camera"></span>
+              <span class="tutor-control"><img src="assets/tutor/settings_4.svg" alt="" class="tutor-icon tutor-icon-settings"></span>
+              <span class="tutor-control tutor-control-end"><img src="assets/tutor/phone.svg" alt="" class="tutor-icon tutor-icon-phone"></span>
+            </div>
+            </div>
+
+            <div class="engine-panel engine-panel-purple" id="engine-panel-citations" role="tabpanel" aria-labelledby="engine-tab-citations" inert>
+              <img src="assets/tutor/iask%20sticker.svg" alt="" class="engine-sticker sticker-citations-logo">
+              <div class="citation-card">
+                <p class="citation-answer">To solve the quantum equation from a linear point of view, one must recognize that quantum mechanics is fundamentally formulated within the framework of linear algebra in complex Hilbert spaces. <sup class="citation-ref">[1]</sup> The central equation of non-relativistic quantum mechanics, the Schrödinger equation, is a linear partial differential equation. Its linearity implies that if ψ1 and ψ2 are solutions, then any linear combination c1ψ1 + c2ψ2 is also a solution, a principle known as the superposition principle. <sup class="citation-ref">[2]</sup></p>
+              </div>
+              <div class="citation-card citation-sources">
+                <p class="citation-heading">Citations</p>
+                <ol class="citation-list">
+                  <li>Griffiths, David J. Introduction to Quantum Mechanics. (Print)</li>
+                  <li>Shankar, R. Principles of Quantum Mechanics. (Print)</li>
+                </ol>
+              </div>
+              <img src="assets/tutor/heart-sticker.svg" alt="" class="engine-sticker sticker-citations-heart">
+            </div>
+
+            <div class="engine-panel engine-panel-purple" id="engine-panel-validated" role="tabpanel" aria-labelledby="engine-tab-validated" inert>
+              <img src="assets/tutor/heart-sticker-dan.svg" alt="" class="engine-sticker sticker-validated-heart">
+              <span class="typing-bubble" aria-hidden="true"><span></span><span></span><span></span></span>
+              <figure class="testimonial">
+                <div class="testimonial-bubble">
+                  <blockquote class="testimonial-quote">
+                    <p>“ As someone who reviews AI-generated research output daily, what stood out about iAsk was how rarely it overstated what it didn't know. The citation-first approach is closer to how research is actually supposed to work. ”</p>
+                  </blockquote>
+                  <figcaption class="testimonial-author">Dan Preston — Researcher @MIT</figcaption>
+                </div>
+                <img src="assets/tutor/Dan%27s%20profile.png" alt="" class="testimonial-avatar">
+              </figure>
+              <p class="stat-pill stat-students">
+                <span class="avatar-stack" aria-hidden="true"><img src="assets/tutor/2m%20students%201.png" alt="" class="stack-avatar"><img src="assets/tutor/2m%20students%202.png" alt="" class="stack-avatar"><img src="assets/tutor/2m%20students%203.png" alt="" class="stack-avatar"><img src="assets/tutor/2m%20students%204.png" alt="" class="stack-avatar"></span>
+                <span class="stat-label"><span class="stat-count" data-count="2">2</span>M+ students</span>
+              </p>
+              <p class="stat-pill stat-researchers">
+                <span class="avatar-stack" aria-hidden="true"><img src="assets/tutor/1m%20students%201.png" alt="" class="stack-avatar"><img src="assets/tutor/1m%20students%202.png" alt="" class="stack-avatar"><img src="assets/tutor/1m%20students%203.png" alt="" class="stack-avatar"></span>
+                <span class="stat-label"><span class="stat-count" data-count="1">1</span>M+ researchers</span>
+              </p>
+              <img src="assets/tutor/star-dan.svg" alt="" class="engine-sticker sticker-validated-star">
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- ===== RESEARCH COMPARISON SECTION ===== -->
+  <section class="research">
+    <div class="research-header">
+      <h2 class="research-title">Made specially for research</h2>
+      <p class="research-subtitle">iAsk performed 67% better when compared to other models, making it the best search engine for students and researchers</p>
+    </div>
+
+    <div class="compare-scroll">
+      <div class="compare">
+        <span class="compare-card compare-card-iask" aria-hidden="true"></span>
+        <span class="compare-card compare-card-claude" aria-hidden="true"></span>
+        <span class="compare-card compare-card-chatgpt" aria-hidden="true"></span>
+
+        <table class="compare-table">
+          <caption class="visually-hidden">How iAsk compares with Claude and ChatGPT for research</caption>
+          <colgroup>
+            <col class="compare-col-label">
+            <col class="compare-col">
+            <col class="compare-col">
+            <col class="compare-col-last">
+          </colgroup>
+          <thead>
+            <tr>
+              <td></td>
+              <th scope="col" class="compare-iask"><img src="assets/iask-logo.svg" alt="iAsk" class="compare-logo-iask"></th>
+              <th scope="col"><img src="assets/compare/claude-logo.svg" alt="Claude" class="compare-logo-claude"></th>
+              <th scope="col">
+                <span class="compare-logo-chatgpt"><img src="assets/compare/chatgpt-symbol.svg" alt="">ChatGPT</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Primary architecture</th>
+              <td class="compare-iask"><span style="--w: 204px">Advanced neural search &amp; answer engine</span></td>
+              <td><span>Enterprise workspace &amp; reasoning LLM</span></td>
+              <td><span>General conversational LLM toolkit</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Core strength</th>
+              <td class="compare-iask"><span>Real-time factual verification</span></td>
+              <td><span>Advanced coding &amp; structural writing</span></td>
+              <td><span>Multimodal agentic automation</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Hallucination risk</th>
+              <td class="compare-iask"><span>Extremely low (Strictly grounded in live web)</span></td>
+              <td><span>Low (Strong contextual boundaries)</span></td>
+              <td><span>Moderate (Can default to training weights)</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Data privacy</th>
+              <td class="compare-iask"><span style="--w: 208px">High (No personal data or conversation harvesting)</span></td>
+              <td><span style="--w: 202px">High (Enterprise standard privacy options)</span></td>
+              <td><span style="--w: 200px">Variable (Opt-out needed for training data)</span></td>
+            </tr>
+            <tr>
+              <th scope="row">MMLU rating</th>
+              <td class="compare-iask"><span>86.55% — 1st</span></td>
+              <td><span>76.12% — 2nd</span></td>
+              <td><span>72.55% — 3rd</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Output type</th>
+              <td class="compare-iask"><span>Customisable length answers &amp; search paths</span></td>
+              <td><span>Coherent documents &amp; code repos</span></td>
+              <td><span style="--w: 220px">Text, media, spreadsheets, or custom GPTs</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS SECTION ===== -->
+  <section class="testimonials">
+    <div class="testimonials-header">
+      <h2 class="testimonials-title">Trusted by millions of students worldwide</h2>
+      <p class="testimonials-subtitle">Hear how students and researchers are using iAsk for their toughest assignments</p>
+    </div>
+
+    <ul class="testimonials-grid">
+        <li>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-card-quote">
+              <p>I used to spend hours buried in PDFs trying to find the right citation. iAsk cut my literature review time in half.</p>
+            </blockquote>
+            <figcaption class="testimonial-card-person">
+              <span class="testimonial-card-photo">
+                <img src="assets/testimonials/avatar-blob.svg" alt="" class="testimonial-card-blob">
+                <img src="assets/testimonials/priya.webp" alt="" class="testimonial-card-face" style="--x: -6px; --y: 3px; --size: 59px">
+              </span>
+              <span class="testimonial-card-meta">
+                <span class="testimonial-card-name">Priya Nair</span>
+                <span class="testimonial-card-role">PhD @Stanford university</span>
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-card-quote">
+              <p>Most AI tools hallucinate sources. iAsk actually shows me where the answer came from, which matters a lot in writing thesis.</p>
+            </blockquote>
+            <figcaption class="testimonial-card-person">
+              <span class="testimonial-card-photo">
+                <img src="assets/testimonials/avatar-blob.svg" alt="" class="testimonial-card-blob">
+                <img src="assets/testimonials/jess.webp" alt="" class="testimonial-card-face" style="--x: 0px; --y: 1px; --size: 53px">
+              </span>
+              <span class="testimonial-card-meta">
+                <span class="testimonial-card-name">Jess Mah</span>
+                <span class="testimonial-card-role">Undergraduate @UC Berkeley</span>
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-card-quote">
+              <p>The video tutor genuinely feels like office hours. I used it the night before finals and it walked me through three problem sets.</p>
+            </blockquote>
+            <figcaption class="testimonial-card-person">
+              <span class="testimonial-card-photo">
+                <img src="assets/testimonials/avatar-blob.svg" alt="" class="testimonial-card-blob">
+                <img src="assets/testimonials/ayush.webp" alt="" class="testimonial-card-face" style="--x: -3px; --y: 3px; --size: 58px">
+              </span>
+              <span class="testimonial-card-meta">
+                <span class="testimonial-card-name">Ayush Jaiswal</span>
+                <span class="testimonial-card-role">Graduate @UC Berkeley</span>
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-card-quote">
+              <p>Switched from ChatGPT for anything research-related. The accuracy difference is noticeable, especially with technical papers.</p>
+            </blockquote>
+            <figcaption class="testimonial-card-person">
+              <span class="testimonial-card-photo">
+                <img src="assets/testimonials/avatar-blob.svg" alt="" class="testimonial-card-blob">
+                <img src="assets/testimonials/daniel.webp" alt="" class="testimonial-card-face" style="--x: -1px; --y: 0px; --size: 53px">
+              </span>
+              <span class="testimonial-card-meta">
+                <span class="testimonial-card-name">Daniel Kim</span>
+                <span class="testimonial-card-role">Research assistance @Harvard</span>
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+    </ul>
+  </section>
+
+  <!-- ===== MOBILE APP BANNER ===== -->
+  <section class="app-cta">
+    <div class="app-cta-banner">
+      <div class="app-cta-text">
+        <h2 class="app-cta-title">Go 2X faster with our mobile app</h2>
+        <p class="app-cta-subtitle">Download the iAsk app for fast, accurate, ad-free answers wherever you're working.</p>
+        <a href="https://apps.apple.com/us/app/iask-ai-unlimited/id6449653022" target="_blank" rel="nofollow noopener" class="app-cta-button">
+          <img src="assets/footer/apple.svg" alt="" class="app-cta-apple">
+          Download app
+        </a>
+      </div>
+      <img src="assets/footer/phone-mockup.webp" alt="The iAsk mobile app answering “How does photosynthesis work?”" class="app-cta-phone">
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="https://iask.ai/" class="footer-logo"><img src="assets/iask-logo.svg" alt="iAsk"></a>
+        <div class="footer-brand-bottom">
+          <ul class="footer-socials">
+            <li><a href="https://x.com/i_ask_ai" target="_blank" rel="nofollow noopener" aria-label="iAsk on X (opens in a new tab)"><img src="assets/footer/x.svg" alt=""></a></li>
+            <li><a href="https://www.linkedin.com/company/iask-ai" target="_blank" rel="nofollow noopener" aria-label="iAsk on LinkedIn (opens in a new tab)"><img src="assets/footer/linkedin.svg" alt=""></a></li>
+            <li><a href="https://medium.com/iask-insights" target="_blank" rel="nofollow noopener" aria-label="iAsk on Medium (opens in a new tab)"><img src="assets/footer/medium.svg" alt=""></a></li>
+          </ul>
+          <p class="footer-copyright">©2026 AI Search Inc. All rights reserved.</p>
+        </div>
+      </div>
+
+      <div class="footer-menus">
+          <nav class="footer-menu" aria-label="Products">
+            <h2 class="footer-menu-title">Products</h2>
+            <ul class="footer-menu-links">
+              <li><a href="https://iask.ai/?mode=finance">Ask finance</a></li>
+              <li><a href="https://iask.ai/?mode=business">Ask business</a></li>
+              <li><a href="https://iask.ai/?mode=law">Ask law</a></li>
+              <li><a href="https://iask.ai/ai-detector">AI detector</a></li>
+              <li><a href="https://chromewebstore.google.com/detail/iask-search/mffancafpblpbeocjmjafjkgcpneiioc" rel="nofollow">Browser search</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-menu" aria-label="Company">
+            <h2 class="footer-menu-title">Company</h2>
+            <ul class="footer-menu-links">
+              <li><a href="https://iask.ai/api" rel="nofollow">iAsk API</a></li>
+              <li><a href="https://iask.ai/contact_us/new" rel="nofollow">Contact us</a></li>
+              <li><a href="https://iask.ai/how_does_this_work" rel="nofollow">About</a></li>
+              <li><a href="https://blog.iask.ai/">Blog</a></li>
+              <li><a href="#">Career</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-menu" aria-label="Tools">
+            <h2 class="footer-menu-title">Tools</h2>
+            <ul class="footer-menu-links">
+              <li><a href="https://chromewebstore.google.com/detail/iask-search/mffancafpblpbeocjmjafjkgcpneiioc" target="_blank" rel="nofollow noopener">Chrome extension</a></li>
+              <li><a href="https://iask.ai/video">Video tutor</a></li>
+              <li><a href="https://iask.ai/summarizer">AI summarizer</a></li>
+              <li><a href="https://apps.apple.com/us/app/iask-ai-unlimited/id6449653022" target="_blank" rel="nofollow noopener">Mobile app</a></li>
+              <li><a href="https://chromewebstore.google.com/detail/iask-search/mffancafpblpbeocjmjafjkgcpneiioc" target="_blank" rel="nofollow noopener">Browser search</a></li>
+              <li><a href="https://flawlessly.ai/" target="_blank" rel="nofollow noopener">Grammar checker</a></li>
+              <li><a href="https://iask.ai/docs">Analyze document</a></li>
+              <li><a href="https://iask.ai/companion">Companion AI</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-menu" aria-label="Legal">
+            <h2 class="footer-menu-title">Legal</h2>
+            <ul class="footer-menu-links">
+              <li><a href="https://iask.ai/privacy" rel="nofollow">Privacy policy</a></li>
+              <li><a href="https://iask.ai/terms_of_use" rel="nofollow">Terms of use</a></li>
+            </ul>
+          </nav>
+      </div>
+    </div>
+    <img src="assets/footer/wave.svg" alt="" class="footer-wave">
+  </footer>
 
   <script src="script.js"></script>
 </body>

@@ -2588,7 +2588,8 @@ button.nav-link {
   }
 
   .search-input {
-    font-size: 14px;
+    /* 16px minimum: smaller inputs make iOS zoom the page when they are tapped */
+    font-size: 16px;
   }
 
   /* The empty attachments list must not take space (its display: flex was overriding [hidden]) */

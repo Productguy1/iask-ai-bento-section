@@ -307,11 +307,11 @@ function initTutorScale() {
 
   function update() {
     if (!phone.matches) {
-      visual.style.removeProperty('--tutor-scale');
+      visual.style.removeProperty('--k');
       return;
     }
     const scale = Math.min(1, (column.clientWidth * 0.95) / 455);
-    visual.style.setProperty('--tutor-scale', scale.toFixed(4));
+    visual.style.setProperty('--k', scale.toFixed(4));
   }
 
   new ResizeObserver(update).observe(column);

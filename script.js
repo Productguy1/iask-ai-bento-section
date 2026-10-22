@@ -10,8 +10,60 @@ document.addEventListener('DOMContentLoaded', () => {
   initTypingPlaceholder();
   document.querySelectorAll('.nav-dropdown').forEach(initNavDropdown);
   initEngineTabs();
+  initCompareProgress();
   initHeaderReveal();
+  initMobileMenu();
 });
+
+function initMobileMenu() {
+  const header = document.querySelector('.site-header');
+  const toggle = header.querySelector('.menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  const toolsToggle = menu.querySelector('.mobile-menu-tools-toggle');
+  const toolsList = document.getElementById(toolsToggle.getAttribute('aria-controls'));
+
+  function setToolsOpen(open) {
+    toolsToggle.setAttribute('aria-expanded', String(open));
+    toolsList.hidden = !open;
+  }
+
+  function setOpen(open) {
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menu.hidden = !open;
+    // On phones the menu covers the page, so stop the page behind it scrolling
+    document.documentElement.classList.toggle('menu-open', open);
+    if (!open) setToolsOpen(false);
+  }
+
+  toggle.addEventListener('click', () => setOpen(menu.hidden));
+
+  menu.addEventListener('click', e => {
+    if (e.target.closest('.mobile-menu-tools-toggle')) {
+      setToolsOpen(toolsList.hidden);
+      return;
+    }
+    // Choosing anything else in the menu closes it
+    const choice = e.target.closest('a, button');
+    if (!choice) return;
+    setOpen(false);
+    if (choice.hasAttribute('data-focus-search')) document.getElementById('search-query').focus();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !menu.hidden) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (!menu.hidden && !header.contains(e.target)) setOpen(false);
+  });
+
+  header.addEventListener('menu:close', () => setOpen(false));
+}
 
 // Past the hero, hide the nav on scroll down and bring it back on scroll up
 function initHeaderReveal() {
@@ -33,6 +85,7 @@ function initHeaderReveal() {
       header.classList.remove('is-hidden');
     } else if (delta > SCROLL_THRESHOLD) {
       if (toolsTrigger.getAttribute('aria-expanded') === 'true') toolsTrigger.click();
+      header.dispatchEvent(new Event('menu:close'));
       header.classList.add('is-hidden');
     } else if (delta < -SCROLL_THRESHOLD) {
       header.classList.remove('is-hidden');
@@ -225,6 +278,22 @@ function initTestimonialSequence(panel) {
   panel.addEventListener('engine:hide', () => { run++; });
 }
 
+function initCompareProgress() {
+  const scroller = document.querySelector('.compare-scroll');
+  const track = document.querySelector('.compare-progress');
+  const thumb = track.querySelector('.compare-progress-thumb');
+
+  function update() {
+    const max = scroller.scrollWidth - scroller.clientWidth;
+    const ratio = max > 0 ? scroller.scrollLeft / max : 0;
+    thumb.style.transform = `translateX(${ratio * (track.clientWidth - thumb.offsetWidth)}px)`;
+  }
+
+  scroller.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+}
+
 function initEngineTabs() {
   initStreamingAnswer(document.getElementById('engine-panel-citations'));
   initTestimonialSequence(document.getElementById('engine-panel-validated'));
@@ -351,21 +420,22 @@ function initNavDropdown(dropdown) {
 
 function initTypingPlaceholder() {
   const input = document.getElementById('search-query');
+  // [full question, shorter phone version]; the short one is used only when the full one won't fit
   const queries = [
-    'How does photosynthesis work?',
-    'Why does time slow down near a black hole?',
-    'Explain the causes of World War I',
-    'Summarize peer-reviewed studies on microplastics in drinking water',
-    'What is the derivative of sin(x)²?',
-    'Summarize the plot of Macbeth',
-    'How do I solve a quadratic equation?',
-    'What does current research say about remote learning and student outcomes?',
-    'How do vaccines train the immune system?',
-    'Explain Newton’s three laws of motion',
-    'What is the difference between mitosis and meiosis?',
-    'Compare recent findings on CRISPR off-target effects',
-    'What does an integral actually measure?',
-    'How does quantum entanglement work?',
+    ['How does photosynthesis work?'],
+    ['Why does time slow down near a black hole?', 'How do black holes bend time?'],
+    ['Explain the causes of World War I'],
+    ['Summarize peer-reviewed studies on microplastics in drinking water', 'Summarize microplastics research'],
+    ['What is the derivative of sin(x)²?'],
+    ['Summarize the plot of Macbeth'],
+    ['How do I solve a quadratic equation?', 'Solve a quadratic equation'],
+    ['What does current research say about remote learning and student outcomes?', 'Does remote learning work?'],
+    ['How do vaccines train the immune system?', 'How do vaccines work?'],
+    ['Explain Newton’s three laws of motion', 'Newton’s laws of motion'],
+    ['What is the difference between mitosis and meiosis?', 'Mitosis vs. meiosis explained'],
+    ['Compare recent findings on CRISPR off-target effects', 'Latest CRISPR safety findings'],
+    ['What does an integral actually measure?', 'What does an integral measure?'],
+    ['How does quantum entanglement work?', 'What is quantum entanglement?'],
   ];
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -377,23 +447,49 @@ function initTypingPlaceholder() {
   const START_DELAY = 1200;
 
   let queryIndex = 0;
-  let charIndex = queries[0].length;
+  let current = queries[0][0];
+  let charIndex = current.length;
   let deleting = true;
 
   const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+  // Placeholders can't wrap, so on narrow inputs (phones) skip questions wider than the input
+  const measure = document.createElement('canvas').getContext('2d');
+  function fits(query) {
+    const style = getComputedStyle(input);
+    measure.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+    if (measure.letterSpacing !== undefined) measure.letterSpacing = style.letterSpacing;
+    const available = input.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    return measure.measureText(query).width <= available;
+  }
+
+  // The full question if it fits, else its short version, else null (skipped)
+  function pick(versions) {
+    return versions.find(fits) || null;
+  }
+
+  function next(from) {
+    for (let step = 1; step <= queries.length; step++) {
+      const i = (from + step) % queries.length;
+      const text = pick(queries[i]);
+      if (text) return [i, text];
+    }
+    const i = (from + 1) % queries.length;
+    return [i, queries[i][queries[i].length - 1]];
+  }
 
   async function loop() {
     await wait(START_DELAY + HOLD_AFTER_TYPING);
 
     while (true) {
-      const query = queries[queryIndex];
+      const query = current;
 
       if (deleting) {
         charIndex--;
         input.placeholder = query.slice(0, charIndex);
         if (charIndex === 0) {
           deleting = false;
-          queryIndex = (queryIndex + 1) % queries.length;
+          [queryIndex, current] = next(queryIndex);
           await wait(PAUSE_BEFORE_NEXT);
         } else {
           await wait(DELETE_SPEED);

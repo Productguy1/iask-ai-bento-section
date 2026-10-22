@@ -52,7 +52,46 @@
         <a href="https://iask.ai/users/log_in" class="btn-login">Log in</a>
         <a href="https://iask.ai/users/log_in" class="btn-signup">Sign up</a>
       </div>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <svg class="menu-icon-open" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M3.5 4.75H16.5M3.5 10H16.5M3.5 15.25H16.5" stroke="#182230" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <svg class="menu-icon-close" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M5 5L15 15M15 5L5 15" stroke="#182230" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
+
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Main" hidden>
+      <ul class="mobile-menu-links">
+        <li><button type="button" class="mobile-menu-link" data-focus-search>Ask AI</button></li>
+        <li><button type="button" class="mobile-menu-link" data-set-mode="guide_me">Learn with AI</button></li>
+        <li><a href="https://iask.ai/pricing" class="mobile-menu-link">iAsk Pro</a></li>
+        <li><a href="https://iask.ai/video" class="mobile-menu-link">AI Video Tutor</a></li>
+        <li><a href="#" class="mobile-menu-link">SEO content</a></li>
+        <li>
+          <button type="button" class="mobile-menu-link mobile-menu-tools-toggle" aria-expanded="false" aria-controls="mobile-menu-tools">
+            Tools
+            <svg class="mobile-menu-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M6 8.5L9.29289 11.7929C9.62623 12.1262 9.79289 12.2929 10 12.2929C10.2071 12.2929 10.3738 12.1262 10.7071 11.7929L14 8.5" stroke="#596173" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="mobile-menu-tools" id="mobile-menu-tools" hidden>
+            <li><a href="#" class="tools-menu-item"><img src="assets/tools/chrome-extension.svg" alt="" class="tools-menu-icon">iAsk Chrome extension</a></li>
+            <li><a href="#" class="tools-menu-item"><img src="assets/tools/ai-summarizer.svg" alt="" class="tools-menu-icon">AI summarizer</a></li>
+            <li><a href="#" class="tools-menu-item"><img src="assets/tools/ai-assistance.svg" alt="" class="tools-menu-icon">AI assistance</a></li>
+            <li><a href="#" class="tools-menu-item"><img src="assets/tools/companion-ai.svg" alt="" class="tools-menu-icon">Companion AI</a></li>
+            <li><a href="#" class="tools-menu-item"><img src="assets/tools/analyze-documents.svg" alt="" class="tools-menu-icon">Analyze documents</a></li>
+            <li><a href="#" class="tools-menu-item"><img src="assets/tools/ai-writer.svg" alt="" class="tools-menu-icon">AI writer</a></li>
+            <li><a href="#" class="tools-menu-item"><img src="assets/tools/seo-content.svg" alt="" class="tools-menu-icon">SEO content</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mobile-menu-actions">
+        <a href="https://iask.ai/users/log_in" class="btn-login">Log in</a>
+        <a href="https://iask.ai/users/log_in" class="btn-signup">Sign up</a>
+      </div>
+    </nav>
   </header>
 
   <!-- ===== HERO SECTION ===== -->
@@ -150,7 +189,12 @@
             <button type="button" class="toolbar-btn toolbar-mic" aria-label="Voice input" aria-pressed="false">
               <img src="assets/mic-icon.svg" alt="">
             </button>
-            <button type="submit" class="btn-ask-ai">Ask AI</button>
+            <button type="submit" class="btn-ask-ai">
+              <span class="btn-ask-ai-label">Ask AI</span>
+              <svg class="btn-ask-ai-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <path d="M9 14.5V3.5M9 3.5L4.5 8M9 3.5L13.5 8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
         </div>
       </form>
@@ -456,6 +500,7 @@
         </table>
       </div>
     </div>
+    <div class="compare-progress" aria-hidden="true"><span class="compare-progress-thumb"></span></div>
   </section>
 
   <!-- ===== TESTIMONIALS SECTION ===== -->

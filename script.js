@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-dropdown').forEach(initNavDropdown);
   initEngineTabs();
   initCompareProgress();
+  initTutorScale();
+  initDesignUnits();
   initHeaderReveal();
   initMobileMenu();
 });
@@ -276,6 +278,45 @@ function initTestimonialSequence(panel) {
   panel.addEventListener('engine:show', play);
   // Stop the sequence but leave everything visible while the next panel fades in over it
   panel.addEventListener('engine:hide', () => { run++; });
+}
+
+// The mockup panels and phone bento cards size themselves in "design pixels" (--u, --bu), which CSS
+// derives from container units. Older Safari (before iOS 16) has no container units, so set them in px here too.
+function initDesignUnits() {
+  const targets = [
+    ...[...document.querySelectorAll('.tutor-screen')].map(el => [el, '--u', 439]),
+    ...[...document.querySelectorAll('.bento-card')].map(el => [el, '--bu', 334]),
+  ];
+  const designWidth = new Map(targets.map(([el, prop, width]) => [el, [prop, width]]));
+
+  const observer = new ResizeObserver(entries => {
+    entries.forEach(({ target }) => {
+      const [prop, width] = designWidth.get(target);
+      // clientWidth ignores transforms, matching what container units measure
+      target.style.setProperty(prop, `${target.clientWidth / width}px`);
+    });
+  });
+  targets.forEach(([el]) => observer.observe(el));
+}
+
+// On phones, scale the 455px video-call mockup to 95% of its column (the Figma proportion)
+function initTutorScale() {
+  const visual = document.querySelector('.tutor-visual');
+  const column = document.querySelector('.engine-container');
+  const phone = window.matchMedia('(max-width: 767px)');
+
+  function update() {
+    if (!phone.matches) {
+      visual.style.removeProperty('--tutor-scale');
+      return;
+    }
+    const scale = Math.min(1, (column.clientWidth * 0.95) / 455);
+    visual.style.setProperty('--tutor-scale', scale.toFixed(4));
+  }
+
+  new ResizeObserver(update).observe(column);
+  phone.addEventListener('change', update);
+  update();
 }
 
 function initCompareProgress() {

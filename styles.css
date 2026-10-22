@@ -2816,24 +2816,25 @@ button.nav-link {
   }
 
   /* Cards stretch with the phone, so the art area and art offsets scale with the card's width
-     (Figma card: 334px wide, 282px art area); 1px of design = 100cqw / 334 */
+     (Figma card: 334px wide, 282px art area); 1px of design = --bu (script.js also sets it in px for browsers without container units) */
   .bento-card {
     container-type: inline-size;
+    --bu: calc(100cqw / 334);
   }
 
   .card-graphic,
   .bento-card-wide .card-graphic {
-    height: calc(282 * 100cqw / 334);
+    height: calc(282 * var(--bu));
   }
 
   .graphic-question,
   .graphic-summary,
   .graphic-analyze {
-    background-position: center calc(2 * 100cqw / 334);
+    background-position: center calc(2 * var(--bu));
   }
 
   .bento-card-wide .graphic-images {
-    background-position: center calc(4 * 100cqw / 334);
+    background-position: center calc(4 * var(--bu));
   }
 
   .card-text,
@@ -2844,9 +2845,9 @@ button.nav-link {
 
   /* The grammar card is narrow again, so its art scales back up */
   .bento-card-wide .graphic-grammar {
-    height: calc(282 * 100cqw / 334);
+    height: calc(282 * var(--bu));
     background-size: 133%;
-    background-position: center calc(-16 * 100cqw / 334);
+    background-position: center calc(-16 * var(--bu));
   }
 
   .bento-row-2 .bento-card-wide:hover .graphic-grammar {
@@ -2948,7 +2949,7 @@ button.nav-link {
 
   /* Uniform scale keeps every detail of the mockup in proportion (Figma uses 0.766; slightly larger here to fill the wider screen) */
   .tutor-visual {
-    zoom: 0.86;
+    --tutor-scale: 0.86;
   }
 }
 
@@ -3306,23 +3307,10 @@ button.nav-link {
     font-size: 13px;
   }
 
-  /* Mockup scaled as a whole: Figma 325px frame vs our 455px */
+  /* Mockup scaled as a whole to 95% of the column (Figma: 325px frame in a 342px column);
+     script.js sets --tutor-scale from the real width, 0.715 is the 390px fallback */
   .tutor-visual {
-    width: 455px;
-    max-width: none;
-    zoom: 0.715;
-  }
-}
-
-@media (max-width: 380px) {
-  .tutor-visual {
-    zoom: 0.68;
-  }
-}
-
-@media (max-width: 340px) {
-  .tutor-visual {
-    zoom: 0.6;
+    --tutor-scale: 0.715;
   }
 }
 
@@ -3615,5 +3603,22 @@ button.nav-link {
   .footer-wave {
     top: calc(100% + 39px);
     width: 1668px;
+  }
+}
+
+
+/* ===== Scaled video-call mockup (iPad Pro 13" and phones) =====
+   transform instead of zoom: the panels inside size themselves in container units,
+   and Safari applies zoom before resolving those (scaling them twice); transforms don't.
+   Negative margins shrink the layout box to the scaled size (mockup is 455 x 609). */
+@media (max-width: 767px), (min-width: 1025px) and (max-width: 1199px) {
+  .tutor-visual {
+    width: 455px;
+    max-width: none;
+    flex-shrink: 0;
+    transform: scale(var(--tutor-scale));
+    transform-origin: 0 0;
+    margin-right: calc(455px * (var(--tutor-scale) - 1));
+    margin-bottom: calc(609px * (var(--tutor-scale) - 1));
   }
 }

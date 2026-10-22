@@ -1680,6 +1680,8 @@ button.nav-link {
   position: relative;
   width: 1051px;
   margin: 0 auto;
+  /* .compare-scroll clips both axes (overflow-x forces overflow-y), so leave room for the cards' outline */
+  padding-bottom: 2px;
 }
 
 /* Column cards are drawn behind the table; the table's fixed column widths line them up:

@@ -724,6 +724,10 @@ button.nav-link {
   flex-direction: column;
   gap: 56px;
   align-items: center;
+  /* The cards' art is sized to the card width but sits in a fixed-height area, so cap the grid
+     at its 1440px design width (1146px) instead of letting it stretch on wide screens */
+  max-width: 1146px;
+  margin: 0 auto;
 }
 
 .text-header {
